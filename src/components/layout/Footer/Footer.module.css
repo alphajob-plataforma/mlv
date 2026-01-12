@@ -1,0 +1,106 @@
+.footer {
+  background-color: var(--brand-charcoal);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 4rem 1.5rem;
+  margin-top: auto; /* Empuja el footer al fondo si hay poco contenido */
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.topSection {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  align-items: center;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .topSection {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+.brandGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  justify-content: center;
+}
+@media (min-width: 768px) { .brandGroup { justify-content: flex-start; } }
+.brandGroup svg {
+  display: block; 
+}
+.brandName {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  
+  /* CORRECCIONES DE ALINEACIÓN: */
+  margin: 0;       
+  line-height: 1;  /* Reduce la altura de línea al tamaño de la fuente exacto */
+  display: flex;   
+  align-items: center;
+  padding-top: 2px;
+}
+
+.tagline {
+  color: var(--brand-beige);
+  font-size: 0.875rem;
+  max-width: 300px;
+}
+
+.linksContainer {
+  display: flex;
+  gap: 4rem;
+}
+
+.linkGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.linkGroup h4 {
+  color: var(--brand-mint);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.linkGroup a {
+  color: var(--brand-beige);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.2s;
+}
+
+.linkGroup a:hover { color: #fff; }
+
+.socials { display: flex; gap: 1rem; }
+
+.socialBtn {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background-color: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.05);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--brand-beige);
+  transition: all 0.2s;
+}
+
+.socialBtn:hover {
+  background-color: var(--brand-mint);
+  color: var(--brand-charcoal);
+  border-color: var(--brand-mint);
+}

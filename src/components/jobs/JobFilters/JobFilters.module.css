@@ -1,0 +1,150 @@
+/* Contenedor Principal tipo Sidebar */
+.container {
+  /* Fondo y Bordes */
+  background-color: #151818; 
+  border: 1px solid var(--border-color, #2a2e2e);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  
+  /* --- CORRECCIÓN DE TAMAÑO --- */
+  width: 100%;           /* En móviles ocupa todo */
+  max-width: 280px;      /* <--- IMPORTANTE: Nunca será más ancho que esto */
+  min-width: 260px;      /* Evita que se aplaste demasiado */
+  height: fit-content;   /* Altura automática según contenido */
+  
+  /* Sticky: Para que baje contigo al hacer scroll */
+  position: sticky;
+  top: 1rem;
+  flex-shrink: 0;        /* Evita que el flexbox lo comprima */
+}
+
+/* ... resto de estilos (header, title, etc) igual que antes ... */
+/* Header: Filtros + Limpiar */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.clearBtn {
+  background: transparent;
+  border: none;
+  color: var(--brand-mint, #7ADCB7);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.clearBtn:hover { opacity: 0.7; }
+
+/* Secciones */
+.section {
+  margin-bottom: 2rem;
+}
+.section:last-child { margin-bottom: 0; }
+
+.sectionTitle {
+  color: var(--brand-beige, #AFA595); /* Color Beige/Dorado */
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+}
+
+.optionsGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem; /* Espaciado entre opciones */
+}
+
+/* Checkbox Label */
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  user-select: none;
+  group: hover;
+}
+
+/* Texto de la opción */
+.text {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.hiddenInput:checked ~ .text {
+  color: #fff; /* Blanco brillante si está seleccionado */
+  font-weight: 500;
+}
+
+.checkboxLabel:hover .text {
+  color: #fff;
+}
+
+/* --- Custom Checkbox (Cuadrado) --- */
+.customCheckbox {
+  height: 20px;
+  width: 20px;
+  min-width: 20px;
+  border: 2px solid #2a2e2e;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  background-color: transparent;
+}
+
+/* Checkbox Activo */
+.hiddenInput:checked ~ .customCheckbox {
+  background-color: var(--brand-mint, #7ADCB7);
+  border-color: var(--brand-mint, #7ADCB7);
+}
+
+.checkIcon {
+  color: #131616; /* Color del tick oscuro */
+  display: none;
+}
+
+.hiddenInput:checked ~ .customCheckbox .checkIcon {
+  display: block;
+}
+
+/* --- Radio Button Style (Redondo) para Presupuesto --- */
+.radioCircle {
+  border-radius: 50%; /* Lo hace redondo */
+}
+
+.radioDot {
+  width: 8px;
+  height: 8px;
+  background-color: #fff;
+  border-radius: 50%;
+  display: none;
+}
+
+/* Lógica visual del Radio Button */
+.hiddenInput:checked ~ .radioCircle {
+  background-color: var(--brand-mint, #7ADCB7);
+  border-color: var(--brand-mint, #7ADCB7);
+}
+
+/* Ocultamos el input real */
+.hiddenInput {
+  position: absolute;
+  opacity: 0;
+  height: 0;
+  width: 0;
+}

@@ -1,0 +1,154 @@
+/* Configuración base de la página */
+.pageContainer {
+  min-height: 100vh;
+  background-color: #131616; /* Charcoal */
+  color: #fff;
+  padding: 2rem 1.5rem; /* px-6 py-8 */
+}
+
+/* Contenedor central (max-w-7xl mx-auto) */
+.contentWrapper {
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* --- Hero Section (Título) --- */
+.heroSection {
+  margin-bottom: 2.5rem;
+}
+
+.title {
+  font-size: 2rem; /* text-3xl */
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  color: #AFA595; /* Gray Beige */
+  font-size: 1rem;
+}
+
+/* --- Buscador --- */
+.searchSection {
+  margin-bottom: 2rem;
+}
+
+/* --- Botón Mobile para Filtros --- */
+.mobileFilterBtn {
+  display: none; /* Oculto en desktop */
+  background-color: #1c1f1f;
+  border: 1px solid #2a2e2e;
+  color: #7ADCB7;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* --- Layout Principal (Grid) --- */
+/* Equivalente a: grid grid-cols-1 lg:grid-cols-4 gap-8 */
+.mainGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  position: relative;
+}
+
+/* Estilos Desktop */
+@media (min-width: 1024px) {
+  .mainGrid {
+    display: grid;
+    /* La columna izquierda (filtros) fija de 280px, el resto flexible */
+    grid-template-columns: 280px 1fr; 
+    align-items: start;
+  }
+
+  .mobileFilterBtn {
+    display: none;
+  }
+}
+
+@media (max-width: 1023px) {
+  .mobileFilterBtn {
+    display: flex; /* Visible en móvil */
+  }
+}
+
+/* --- Sidebar (Filtros) --- */
+.sidebar {
+  /* sticky top-8 */
+  position: sticky;
+  top: 2rem;
+  height: fit-content;
+}
+
+/* En móvil ocultamos el sidebar por defecto a menos que se active */
+.sidebarMobileHidden {
+  display: none;
+}
+.sidebarMobileVisible {
+  display: block;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+@media (min-width: 1024px) {
+  .sidebarMobileHidden { display: block; } /* Siempre visible en desktop */
+  .sidebarMobileVisible { display: block; }
+}
+
+/* --- Feed de Resultados (Derecha) --- */
+.feedSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-width: 0; /* Evita desbordamiento en flex items */
+}
+
+/* Header de resultados (ej: "Mostrando 5 empleos") */
+.resultsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.resultsCount {
+  color: #AFA595;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.highlight {
+  color: #fff;
+  font-weight: 700;
+}
+
+/* Estado Vacío */
+.emptyState {
+  padding: 4rem 2rem;
+  text-align: center;
+  background-color: rgba(28, 31, 31, 0.5);
+  border: 1px dashed #2a2e2e;
+  border-radius: 1rem;
+}
+
+.emptyTitle {
+  color: #AFA595;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.clearFilterLink {
+  color: #7ADCB7;
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 0.9rem;
+}

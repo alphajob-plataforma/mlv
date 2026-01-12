@@ -1,0 +1,173 @@
+/* Contenedor centrado */
+.container {
+  width: 100%;
+  max-width: 800px; /* Un poco más compacto para enfocar la atención */
+  margin: 0 auto 2.5rem auto;
+}
+
+/* --- La Barra (Píldora) --- */
+.searchBar {
+  background-color: var(--bg-surface, #1c1f1f);
+  border: 1px solid var(--border-color, #2a2e2e);
+  border-radius: 999px;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+.searchBar:focus-within {
+  border-color: var(--brand-mint, #7ADCB7);
+  box-shadow: 0 0 0 1px var(--brand-mint, #7ADCB7);
+}
+
+/* --- El Input Principal --- */
+.inputWrapper {
+  flex: 1; /* Ocupa todo el espacio disponible */
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 3rem;
+}
+
+.icon {
+  position: absolute;
+  left: 1.2rem;
+  color: var(--brand-beige, #AFA595);
+  pointer-events: none;
+}
+
+.input {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-family: inherit;
+  font-size: 1rem;
+  padding-left: 3.5rem; /* Espacio para la lupa */
+  padding-right: 1rem;
+  outline: none;
+}
+
+.input::placeholder {
+  color: rgba(175, 165, 149, 0.5);
+}
+
+/* --- Botón Buscar --- */
+.searchButton {
+  background-color: var(--brand-mint, #7ADCB7);
+  color: var(--brand-charcoal, #131616);
+  border: none;
+  border-radius: 999px;
+  padding: 0 2rem;
+  height: 3rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s, filter 0.2s;
+}
+
+.searchButton:hover {
+  filter: brightness(1.1);
+}
+.searchButton:active {
+  transform: scale(0.96);
+}
+
+/* --- Botón Limpiar (X) --- */
+.clearButton {
+  position: absolute;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  color: var(--brand-beige, #AFA595);
+  cursor: pointer;
+  display: flex;
+  padding: 4px;
+  border-radius: 50%;
+}
+.clearButton:hover {
+  color: #fff;
+  background-color: rgba(255,255,255,0.1);
+}
+
+/* --- Tags Populares --- */
+.popularTags {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Centrados */
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tagsLabel {
+  color: var(--brand-beige, #AFA595);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-right: 0.5rem;
+}
+
+.tag {
+  background-color: transparent;
+  border: 1px solid var(--border-color, #2a2e2e);
+  color: var(--brand-beige, #AFA595);
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tag:hover {
+  border-color: var(--brand-mint, #7ADCB7);
+  color: var(--brand-mint, #7ADCB7);
+}
+.suggestionsContainer {
+  position: absolute;
+  top: 100%; /* Justo debajo del input */
+  left: 1.5rem; /* Alineado con el inicio del texto */
+  right: 1.5rem;
+  background-color: var(--bg-surface, #1c1f1f);
+  border: 1px solid var(--border-color, #2a2e2e);
+  border-top: none; /* Que parezca continuación del input */
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  z-index: 50; /* Por encima de todo */
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+  margin-top: 4px; /* Pequeño espacio */
+}
+
+.suggestionItem {
+  padding: 0.75rem 1rem;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(42, 46, 46, 0.5);
+  color: #fff; /* Texto blanco */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+
+.suggestionItem:last-child {
+  border-bottom: none;
+}
+
+.suggestionItem:hover {
+  background-color: rgba(122, 220, 183, 0.1); /* Menta muy suave */
+  color: var(--brand-mint, #7ADCB7);
+}
+
+/* Icono pequeño dentro de la sugerencia para indicar tipo (opcional) */
+.suggestionIcon {
+  color: var(--brand-beige, #AFA595);
+  opacity: 0.7;
+}

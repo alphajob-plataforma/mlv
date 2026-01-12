@@ -1,0 +1,272 @@
+/* login.module.css */
+
+.container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--brand-charcoal);
+  font-size: 14px; /* Bajamos la base ligeramente para este contexto */
+}
+
+/* --- COLUMNA IZQUIERDA --- */
+.leftPanel {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .leftPanel {
+    display: flex;
+    flex: 1;
+    position: relative;
+    background-color: #0d0f0f;
+    border-right: 1px solid var(--border-color);
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+}
+
+.pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.4;
+  background-image: radial-gradient(circle at 2px 2px, #2d3434 1px, transparent 0);
+  background-size: 24px 24px; /* Puntos más juntos */
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(122, 220, 183, 0.05) 0%, rgba(19, 22, 22, 0) 100%);
+  z-index: 1;
+}
+
+.brandContent {
+  position: relative;
+  z-index: 10;
+  padding: 0 4rem; /* Menos padding lateral */
+  max-width: 500px; /* Ancho máximo reducido */
+}
+
+.badge {
+  display: inline-block;
+  padding: 5px 10px; /* Badge más pequeño */
+  border-radius: 99px;
+  border: 1px solid rgba(122, 220, 183, 0.2);
+  background-color: rgba(122, 220, 183, 0.05);
+  color: var(--brand-mint);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.headingLarge {
+  font-size: 2.25rem; /* Antes 3rem -> Ahora mucho más compacto */
+  font-weight: 300;
+  line-height: 1.1;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.headingHighlight {
+  color: var(--brand-mint);
+  font-weight: 700;
+}
+
+.description {
+  color: var(--brand-beige);
+  font-size: 0.95rem; /* Letra más fina */
+  line-height: 1.6;
+  font-weight: 300;
+  margin-bottom: 2rem;
+}
+
+.statsRow {
+  display: flex;
+  gap: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1.5rem;
+}
+
+.statItem { display: flex; flex-direction: column; }
+.statNumber { font-size: 1.25rem; font-weight: 700; color: #fff; }
+.statLabel { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--brand-beige); }
+
+.glowEffect {
+  position: absolute;
+  bottom: -80px;
+  left: -80px;
+  width: 300px;
+  height: 300px;
+  background-color: rgba(122, 220, 183, 0.05);
+  border-radius: 50%;
+  filter: blur(80px);
+}
+
+/* --- COLUMNA DERECHA --- */
+.rightPanel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem; /* Menos padding general */
+  position: relative;
+  background-color: var(--brand-charcoal);
+}
+
+.formContainer {
+  width: 100%;
+  max-width: 360px; /* Reducido de 420px a 360px para que se sienta "zoomed out" */
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Menos espacio entre elementos */
+}
+
+/* Header Compacto */
+.logoMobile { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; color: var(--brand-mint); }
+@media (min-width: 1024px) { .logoMobile { display: none; } }
+
+.formHeader h1 {
+  color: var(--brand-mint);
+  font-size: 1.75rem; /* Título más pequeño */
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.formHeader p {
+  color: var(--brand-beige);
+  font-size: 0.85rem;
+  font-weight: 300;
+}
+
+/* Inputs Compactos */
+.inputGroup { display: flex; flex-direction: column; gap: 0.35rem; }
+
+.label {
+  color: var(--brand-beige);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-left: 2px;
+}
+
+.inputWrapper { position: relative; }
+
+.inputIcon {
+  position: absolute;
+  left: 0.85rem; /* Icono más pegado al borde */
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(175, 165, 149, 0.4);
+  pointer-events: none;
+  transition: color 0.2s;
+}
+
+.inputField {
+  width: 100%;
+  height: 2.75rem; /* Altura reducida (aprox 44px vs 56px antes) */
+  background-color: rgba(26, 30, 30, 0.4);
+  border: 1px solid #2d3434;
+  border-radius: var(--radius-md);
+  padding-left: 2.5rem;
+  padding-right: 1rem;
+  color: #fff;
+  font-size: 0.9rem; /* Texto interno más pequeño */
+  outline: none;
+  transition: all 0.2s;
+}
+
+.inputField:focus {
+  border-color: var(--brand-mint);
+  background-color: rgba(26, 30, 30, 0.8);
+}
+.inputField:focus + .inputIcon { color: var(--brand-mint); }
+
+.passwordToggle {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none; border: none;
+  color: rgba(175, 165, 149, 0.4);
+  cursor: pointer;
+  display: flex;
+}
+
+.forgotLink {
+  color: var(--brand-beige);
+  font-size: 0.75rem;
+  text-align: right;
+  margin-top: -0.35rem;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.forgotLink:hover { color: var(--brand-mint); }
+
+/* Botones Compactos */
+.submitBtn {
+  width: 100%;
+  padding: 0.85rem; /* Menos padding vertical */
+  background-color: var(--brand-mint);
+  color: var(--brand-charcoal);
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: filter 0.2s, transform 0.1s;
+  margin-top: 0.5rem;
+}
+.submitBtn:hover { filter: brightness(1.1); }
+.submitBtn:active { transform: scale(0.99); }
+
+/* Divisor */
+.divider {
+  display: flex; align-items: center; justify-content: center; position: relative;
+  margin: 1.25rem 0; /* Margen reducido */
+}
+.dividerLine { position: absolute; left: 0; right: 0; height: 1px; background-color: rgba(255, 255, 255, 0.1); }
+.dividerText {
+  background-color: var(--brand-charcoal);
+  padding: 0 0.75rem;
+  position: relative; z-index: 1;
+  color: rgba(175, 165, 149, 0.5);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Social Login */
+.socialGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+
+.socialBtn {
+  display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  padding: 0.7rem; /* Botón más delgado */
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-md);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.socialBtn:hover { background-color: rgba(255, 255, 255, 0.08); }
+
+/* Footer */
+.footerText {
+  text-align: center; color: var(--brand-beige); font-size: 0.85rem; margin-top: 1rem;
+}
+.registerLink {
+  color: var(--brand-mint); font-weight: 600; margin-left: 0.5rem; text-decoration: underline;
+  text-decoration-color: rgba(122, 220, 183, 0.3); text-underline-offset: 3px;
+}
+.copyright {
+  position: absolute; bottom: 1rem; color: rgba(175, 165, 149, 0.3);
+  font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em;
+}
