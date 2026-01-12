@@ -46,7 +46,7 @@ export default function Navbar() {
         <div className={styles.mobileLinks}>
           <Link href="/" onClick={toggleMenu} className={styles.mobileLink}>Inicio</Link>
           <Link href="/about" onClick={toggleMenu} className={styles.mobileLink}>Sobre Nosotros</Link>
-          <Link href="/offers" onClick={toggleMenu} className={styles.mobileLink}>Ofertas</Link>
+          <Link href="/jobs" onClick={toggleMenu} className={styles.mobileLink}>Ofertas</Link>
         </div>
         <div className={styles.mobileAuth}>
           <Link href="/login" onClick={toggleMenu} className={styles.btnLogin}>Iniciar Sesión</Link>
