@@ -1,0 +1,83 @@
+.pageContainer {
+  padding: 40px;
+  background-color: #131616;
+  min-height: 100vh;
+  color: #fff;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 40px;
+  border-bottom: 1px solid #2a2e2e;
+  padding-bottom: 20px;
+}
+
+.title { font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
+.subtitle { color: #AFA595; }
+
+/* Filtros */
+.filtersBar { display: flex; gap: 16px; }
+
+.searchWrapper {
+  position: relative;
+  background: #1c1f1f;
+  border: 1px solid #2a2e2e;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  width: 300px;
+}
+.searchIcon { position: absolute; left: 12px; color: #AFA595; }
+.searchInput {
+  background: transparent; border: none; color: #fff;
+  padding: 10px 10px 10px 40px; width: 100%; outline: none;
+}
+.filterSelect {
+  background: #1c1f1f; border: 1px solid #2a2e2e; color: #fff;
+  padding: 0 16px; border-radius: 8px; cursor: pointer; outline: none;
+}
+
+/* Grid */
+.talentGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+/* Card */
+.card {
+  background: #1c1f1f; border: 1px solid #2a2e2e;
+  border-radius: 12px; padding: 24px;
+  transition: transform 0.2s;
+}
+.card:hover { border-color: #7ADCB7; transform: translateY(-4px); }
+
+.cardHeader { display: flex; gap: 16px; margin-bottom: 16px; position: relative; }
+.avatarPlaceholder {
+  width: 50px; height: 50px; background: #252a2a; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #7ADCB7; font-weight: 700; border: 1px solid #2a2e2e;
+}
+.freelancerName { font-size: 1.1rem; font-weight: 600; color: #fff; }
+.freelancerRole { color: #AFA595; font-size: 0.9rem; }
+.ratingBadge {
+  position: absolute; right: 0; top: 0;
+  display: flex; gap: 4px; align-items: center;
+  background: rgba(122, 220, 183, 0.1); padding: 4px 8px;
+  border-radius: 12px; color: #7ADCB7; font-size: 0.8rem;
+}
+
+.skillsRow { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+.skillTag {
+  background: #252a2a; color: #d1d5db; font-size: 0.75rem;
+  padding: 4px 10px; border-radius: 4px;
+}
+
+.cardFooter { display: flex; justify-content: space-between; align-items: center; }
+.rate { font-weight: 600; color: #fff; }
+.viewProfileBtn {
+  background: #7ADCB7; color: #131616; border: none;
+  padding: 8px 16px; border-radius: 6px; font-weight: 600; cursor: pointer;
+}

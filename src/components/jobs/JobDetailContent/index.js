@@ -1,3 +1,5 @@
+import { useRouter } from 'next/navigation'; // <--- NUEVO
+import { createClient } from '@/utils/supabase/client'; // <--- NUEVO
 import { 
   Briefcase, X, MapPin, Clock, Building2, 
   DollarSign, Calendar, CheckCircle2, 
@@ -6,8 +8,26 @@ import {
 import styles from './JobDetail.module.css';
 
 export default function JobDetailContent({ job, onClose }) {
-  if (!job) return null;
+  const router = useRouter();
+  const supabase = createClient();
 
+  const handleApply = async () => {
+    // 1. Verificar si hay sesión
+    const { data: { session } } = await supabase.auth.getSession();
+
+    if (!session) {
+      // Si NO está logueado -> Login (guardando a dónde quería ir)
+      router.push(`/login?next=/freelancer/jobs/${job.id}`);
+    } else {
+      // Si SÍ está logueado -> Pantalla de detalle completa
+      router.push(`/freelancer/jobs/${job.id}`);
+    }
+    
+    // Cerramos el modal actual
+    if (onClose) onClose();
+  };
+  if (!job) return null;
+  
   // Fallbacks para datos opcionales
   const requirements = job.requirements || [];
   const benefits = job.benefits || []; // Nuevo campo
@@ -157,7 +177,10 @@ export default function JobDetailContent({ job, onClose }) {
 
       {/* 3. Footer Fijo Inferior */}
       <div className={styles.footer}>
-        <button className={styles.btnApply}>
+       <button 
+            className={styles.btnApply} 
+            onClick={handleApply} // <--- AQUÍ CONECTAMOS LA LÓGICA
+        >
           <Send size={20} />
           Aplicar ahora
         </button>

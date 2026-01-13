@@ -1,160 +1,422 @@
+/* --- LAYOUT PRINCIPAL --- */
 .header {
-  background-color: #131616; /* brand-charcoal */
-  border-bottom: 1px solid #2D3333; /* border-subtle */
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  padding: 0 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background-color: #131616; /* Fondo oscuro */
+    border-bottom: 1px solid #2D3333;
+    width: 100%;
+    height: 70px; /* Altura fija para evitar saltos */
 }
 
 .container {
-  max-width: 1400px;
-  margin: 0 auto;
-  height: 4.5rem; /* 72px */
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+    max-width: 1400px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Separa los 3 bloques */
+    gap: 1rem;
 }
 
-/* --- LOGO Y BRANDING --- */
+/* --- ZONA 1: LOGO --- */
 .logoSection {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+    flex-shrink: 0; /* Que el logo nunca se aplaste */
+    width: 180px; /* Ancho fijo para mantener alineación */
 }
 
-.logoLink {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  text-decoration: none;
-  transition: opacity 0.2s;
-}
-
-.logoLink:hover {
-  opacity: 0.9;
-}
-
-.logoIcon {
-  color: #7ADCB7; /* brand-mint */
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
 }
 
 .brandName {
-  font-size: 1.25rem;
-  font-weight: 800;
-  color: white;
-  letter-spacing: 0.02em;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #fff;
+    letter-spacing: -0.5px;
 }
 
-.dividerVertical {
-  width: 1px;
-  height: 1.5rem;
-  background-color: #2D3333;
+/* --- ZONA 2: BUSCADOR (SOLUCIÓN TAMAÑO) --- */
+.centerSection {
+    flex: 1; /* OBLIGA A OCUPAR TODO EL ESPACIO DISPONIBLE */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 600px; /* Límite máximo para que no sea gigante en pantallas ultra-wide */
 }
 
-.roleBadge {
-  color: #AFA595; /* brand-beige */
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-weight: 600;
-  background: rgba(175, 165, 149, 0.1);
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
+.searchContainer {
+    width: 100%; /* Ocupar el 100% del espacio asignado por centerSection */
+    position: relative;
 }
 
-/* --- NAVEGACIÓN --- */
-.nav {
-  display: flex;
-  gap: 2rem;
+.searchBarWrapper {
+    display: flex; /* Mostrar siempre, ocultaremos en movil si quieres abajo */
+    align-items: center;
+    background-color: #1C2020;
+    border: 1px solid #2D3333;
+    border-radius: 12px;
+    padding: 0 1rem;
+    height: 44px; /* Altura más cómoda */
+    width: 100%;
+    transition: all 0.2s ease;
 }
 
-.navLink {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: #AFA595;
-  font-size: 0.875rem;
-  font-weight: 500;
-  text-decoration: none;
-  padding: 0.5rem 0;
-  position: relative;
-  transition: color 0.2s;
+.searchBarWrapper:focus-within {
+    border-color: #7ADCB7; /* Color Mint al escribir */
+    background-color: #000;
 }
 
-.navLink span {
-  font-size: 1.25rem;
+.activeWrapper {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    background-color: #131616;
 }
 
-.navLink:hover {
-  color: white;
+.searchIcon {
+    color: #6B7280;
+    margin-right: 0.75rem;
+    min-width: 18px; /* Evita que se aplaste */
 }
 
-/* Estado Activo: Texto blanco y línea inferior Menta */
-.active {
-  color: white;
+.searchInput {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    width: 100%;
+    font-size: 0.95rem;
+    height: 100%;
 }
 
-.active::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: #7ADCB7;
-  box-shadow: 0 0 8px rgba(122, 220, 183, 0.6);
-  border-radius: 99px;
+.shortcutKey {
+    font-size: 0.75rem;
+    color: #6B7280;
+    border: 1px solid #2D3333;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.03);
+    flex-shrink: 0;
 }
 
-/* --- ACCIONES DERECHA --- */
-.actions {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
+/* --- ZONA 3: DERECHA (NAV Y PERFIL) --- */
+.rightSection {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1.5rem;
+    flex-shrink: 0;
+}
+
+.navDesktop {
+    display: none; /* OCULTO POR DEFECTO (Móvil First) */
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #9CA3AF;
+    text-decoration: none;
+    font-size: 0.75rem;
+    gap: 4px;
+    transition: color 0.2s;
+}
+
+.link:hover, .activeLink {
+    color: #7ADCB7; /* Mint */
+}
+
+.linkIcon {
+    display: block;
+}
+
+.linkText {
+    font-weight: 500;
+}
+
+.divider {
+    display: none; /* Oculto en móvil */
+    width: 1px;
+    height: 24px;
+    background-color: #2D3333;
+}
+
+/* PERFIL Y NOTIFICACIONES */
+.profileGroup {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 .iconBtn {
-  background: none;
-  border: none;
-  color: #AFA595;
-  cursor: pointer;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: color 0.2s;
-}
-
-.iconBtn:hover {
-  color: white;
-}
-
-.dot {
-  position: absolute;
-  top: 2px;
-  right: 2px;
-  width: 8px;
-  height: 8px;
-  background-color: #ff4757;
-  border: 2px solid #131616;
-  border-radius: 50%;
-}
-
-.avatarContainer {
+    background: none;
+    border: none;
+    color: #fff;
+    position: relative;
     cursor: pointer;
+    padding: 5px;
 }
 
-.avatar {
-  width: 2.25rem;
-  height: 2.25rem;
-  background-color: #2D3333;
-  color: white;
-  border-radius: 50%;
+.badge {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 8px;
+    height: 8px;
+    background-color: #EF4444;
+    border-radius: 50%;
+}
+
+.avatarBtn {
+    text-decoration: none;
+}
+
+.avatarPlaceholder {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, #7ADCB7 0%, #10B981 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #064E3B;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+/* --- SOLUCIÓN BOTÓN RESPONSIVE --- */
+.mobileToggle {
+    display: flex; /* Visible en móvil */
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+/* --- SUGGESTIONS DROPDOWN --- */
+.suggestionsDropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #131616;
+    border: 1px solid #2D3333;
+    border-top: none;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+    z-index: 50;
+    overflow: hidden;
+}
+
+.suggestionItem {
+    padding: 12px 1rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    color: #AFA595;
+    transition: background 0.2s;
+    font-size: 0.9rem;
+    border-bottom: 1px solid rgba(255,255,255,0.02);
+}
+
+.suggestionItem:hover {
+    background-color: rgba(122, 220, 183, 0.1);
+    color: #fff;
+}
+
+.suggestionIcon { opacity: 0.5; }
+
+.noResults {
+    padding: 1rem;
+    color: #6B7280;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.dropdownFooter {
+    padding: 8px 1rem;
+    background-color: #1C2020;
+    color: #6B7280;
+    text-align: right;
+    font-size: 0.75rem;
+}
+
+/* --- MEDIA QUERIES (DESKTOP) --- */
+@media (min-width: 1024px) {
+    /* 1. Ocultar botón hamburguesa en desktop */
+    .mobileToggle {
+        display: none; 
+    }
+
+    /* 2. Mostrar navegación desktop */
+    .navDesktop {
+        display: flex; 
+    }
+
+    .divider {
+        display: block;
+    }
+
+    /* 3. Ajuste del buscador en Desktop para que no desaparezca */
+    .searchBarWrapper {
+        display: flex;
+    }
+}
+
+/* --- MEDIA QUERIES (MÓVIL PEQUEÑO) --- */
+@media (max-width: 768px) {
+    /* En móvil, ocultamos la barra grande del centro para usar la versión dentro del menú o una más simple */
+    .searchBarWrapper {
+        display: none; 
+    }
+    
+    /* El contenedor central ocupa menos espacio para dar lugar a los iconos */
+    .centerSection {
+        display: none;
+    }
+}
+
+
+/* --- MOBILE MENU (OVERLAY) --- */
+.mobileMenu {
+    position: fixed;
+    top: 70px; /* Debajo del header */
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 70px);
+    background-color: #131616;
+    z-index: 49;
+    padding: 1.5rem;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.menuOpen {
+    transform: translateX(0);
+}
+
+.mobileSearch {
+    display: flex;
+    align-items: center;
+    background-color: #1C2020;
+    border: 1px solid #2D3333;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+}
+
+.mobileLinks {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.mobileLink {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #2D3333;
+}
+/* --- ESTILOS PARA EL DROPDOWN DE PERFIL --- */
+
+.profileDropdownContainer {
+  position: relative;
+}
+
+.avatarBtn {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.avatarBtn:hover {
+  transform: scale(1.05);
+}
+
+.profileMenu {
+  position: absolute;
+  top: 120%; /* Justo debajo del avatar */
+  right: 0;
+  width: 200px;
+  background-color: #1c1f1f; /* Color de tarjeta oscura */
+  border: 1px solid #2a2e2e;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  padding: 8px;
+  z-index: 100;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.menuHeader {
+  padding: 8px 12px;
+}
+
+.menuUserName {
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.menuUserRole {
+  color: #7ADCB7; /* Mint */
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+.menuDivider {
+  height: 1px;
+  background-color: #2a2e2e;
+  margin: 8px 0;
+}
+
+.menuItem {
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 0.875rem;
-  font-weight: 700;
-  border: 1px solid #7ADCB7; /* Borde menta sutil */
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  color: #AFA595;
+  text-decoration: none;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  transition: all 0.2s;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.menuItem:hover {
+  background-color: #252a2a;
+  color: #fff;
+}
+
+.logoutItem {
+  color: #ff6b6b; /* Rojo suave para logout */
+}
+
+.logoutItem:hover {
+  background-color: rgba(255, 107, 107, 0.1);
+  color: #ff6b6b;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
 }
