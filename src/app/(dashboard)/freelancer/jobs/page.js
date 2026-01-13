@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
 import { Filter, Loader2, Frown } from 'lucide-react';
@@ -14,7 +14,7 @@ import JobDetailContent from '@/components/jobs/JobDetailContent';
 // --- IMPORTA EL CSS NUEVO ---
 import styles from './jobs.module.css';
 
-export default function FreelancerJobsPage() {
+function JobsContent() {
     const searchParams = useSearchParams();
     const queryParam = searchParams.get('q') || '';
 
@@ -23,7 +23,6 @@ export default function FreelancerJobsPage() {
     const [showMobileFilters, setShowMobileFilters] = useState(false);
     const [selectedJob, setSelectedJob] = useState(null);
 
-    // Filtros
     const [filters, setFilters] = useState({
         categories: [],
         types: [],
@@ -32,13 +31,11 @@ export default function FreelancerJobsPage() {
         budget: null
     });
 
-    // 1. Carga de Datos
     useEffect(() => {
         const fetchJobs = async () => {
             setLoading(true);
             const supabase = createClient();
             
-            // Query robusta a job_postings
             const { data, error } = await supabase
                 .from('job_postings')
                 .select(`
@@ -59,17 +56,14 @@ export default function FreelancerJobsPage() {
         fetchJobs();
     }, []);
 
-    // Helper: Ubicación
     const getJobLocation = (job) => job.companies?.company_direccion?.[0]?.departments?.name || 'Remoto';
 
-    // 2. Filtrado
     const filteredJobs = useMemo(() => {
         return jobs.filter((job) => {
             const jobLoc = getJobLocation(job);
             const jobCat = job.job_titles?.category || 'Otros';
             const lowerQuery = queryParam.toLowerCase();
 
-            // Lógica de coincidencia
             const matchSearch = !queryParam || (
                 job.title?.toLowerCase().includes(lowerQuery) ||
                 job.companies?.commercial_name?.toLowerCase().includes(lowerQuery)
@@ -91,7 +85,6 @@ export default function FreelancerJobsPage() {
         });
     }, [jobs, queryParam, filters]);
 
-    // Datos para el sidebar
     const jobsForFilters = useMemo(() => jobs.map(j => ({
         ...j,
         virtualLocation: getJobLocation(j),
@@ -100,8 +93,6 @@ export default function FreelancerJobsPage() {
 
     return (
         <div className={styles.pageContainer}>
-            
-            {/* Cabecera */}
             <header className={styles.headerSection}>
                 <div>
                     <h1 className={styles.pageTitle}>
@@ -120,10 +111,7 @@ export default function FreelancerJobsPage() {
                 </button>
             </header>
 
-            {/* Layout Grid: Sidebar Izquierda | Contenido Derecha */}
             <div className={styles.layoutGrid}>
-                
-                {/* 1. SIDEBAR */}
                 <aside className={`${styles.sidebar} ${showMobileFilters ? styles.sidebarVisible : ''}`}>
                     <div className={styles.sidebarHeaderMobile}>
                         <h3>Filtros</h3>
@@ -136,7 +124,6 @@ export default function FreelancerJobsPage() {
                     />
                 </aside>
 
-                {/* 2. GRID DE TARJETAS */}
                 <main className={styles.jobsGrid}>
                     {loading ? (
                         <div className={styles.loadingState}>
@@ -144,7 +131,6 @@ export default function FreelancerJobsPage() {
                         </div>
                     ) : filteredJobs.length > 0 ? (
                         filteredJobs.map((job) => (
-                            // Wrapper div para el click y el estilo
                             <div 
                                 key={job.id} 
                                 onClick={() => setSelectedJob(job)} 
@@ -167,10 +153,8 @@ export default function FreelancerJobsPage() {
                         </div>
                     )}
                 </main>
-
             </div>
 
-            {/* Modal */}
             <Modal isOpen={!!selectedJob} onClose={() => setSelectedJob(null)}>
                 {selectedJob && (
                     <JobDetailContent 
@@ -179,7 +163,16 @@ export default function FreelancerJobsPage() {
                     />
                 )}
             </Modal>
-
         </div>
+    );
+}
+
+// --- 3. EXPORTAMOS LA PÁGINA CON SUSPENSE ---
+export default function FreelancerJobsPage() {
+    return (
+        // El fallback es lo que se muestra un milisegundo mientras Next.js entiende la URL
+        <Suspense fallback={<div style={{padding: '2rem', color: '#fff'}}>Cargando buscador...</div>}>
+            <JobsContent />
+        </Suspense>
     );
 }
