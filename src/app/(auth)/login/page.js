@@ -1,13 +1,15 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation'; // <--- Importante para redirigir
+import { useRouter, useSearchParams } from 'next/navigation'; // <--- Importante para redirigir
 import { createClient } from '@/utils/supabase/client'; // <--- Importante para conectar a la BD
 import { Mail, Lock, Eye, EyeOff, Loader2 } from 'lucide-react'; // Agregué Loader2 para efecto de carga
 import styles from './login.module.css';
 
 export default function LoginPage() {
   const router = useRouter();
+  const searchParams = useSearchParams(); // <--- OBTENER PARAMETROS URL
+  const nextUrl = searchParams.get('next');
   const [showPassword, setShowPassword] = useState(false);
 
   // 1. ESTADOS PARA LOS DATOS Y LA CARGA
@@ -48,12 +50,20 @@ export default function LoginPage() {
         console.error("Error cargando perfil", profileError);
         router.push('/freelancer');
       } else {
-        // 3. Redirección Inteligente
-        if (profile?.role === 'company_admin' || profile?.role === 'client') {
-          // Nota: Revisa en tu BD si guardaste el rol como 'company' o 'client'
-          router.push('/company');
-        } else {
-          router.push('/freelancer');
+        if (nextUrl) {
+           router.push(nextUrl);
+           router.refresh();
+           return;
+       }
+
+       // 2. Si NO existe 'nextUrl', hacemos la lógica normal de roles
+       const userId = authData.user.id;
+       const { data: profile } = await supabase.from('profiles').select('role').eq('id', userId).single();
+
+       if (profile?.role === 'company') {
+           router.push('/company');
+       } else {
+           router.push('/freelancer');
         }
       }
       router.refresh();

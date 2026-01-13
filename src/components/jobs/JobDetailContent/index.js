@@ -1,5 +1,7 @@
-import { useRouter } from 'next/navigation'; // <--- NUEVO
-import { createClient } from '@/utils/supabase/client'; // <--- NUEVO
+'use client';
+
+import { useRouter } from 'next/navigation';
+import { createClient } from '@/utils/supabase/client';
 import { 
   Briefcase, X, MapPin, Clock, Building2, 
   DollarSign, Calendar, CheckCircle2, 
@@ -11,28 +13,36 @@ export default function JobDetailContent({ job, onClose }) {
   const router = useRouter();
   const supabase = createClient();
 
+  // --- LÓGICA DE APLICACIÓN INTELIGENTE ---
   const handleApply = async () => {
-    // 1. Verificar si hay sesión
+    // 1. Verificar sesión actual
     const { data: { session } } = await supabase.auth.getSession();
 
+    // 2. Definir la URL destino (la oferta completa)
+    const targetUrl = `/freelancer/jobs/${job.id}`;
+
     if (!session) {
-      // Si NO está logueado -> Login (guardando a dónde quería ir)
-      router.push(`/login?next=/freelancer/jobs/${job.id}`);
+      // CASO A: NO LOGUEADO
+      // Redirigimos al Login y le pasamos el parámetro 'next'
+      // Usamos encodeURIComponent para evitar errores con caracteres especiales
+      router.push(`/login?next=${encodeURIComponent(targetUrl)}`);
     } else {
-      // Si SÍ está logueado -> Pantalla de detalle completa
-      router.push(`/freelancer/jobs/${job.id}`);
+      // CASO B: SÍ LOGUEADO
+      // Vamos directo a la oferta
+      router.push(targetUrl);
     }
     
-    // Cerramos el modal actual
+    // Opcional: Cerrar el modal visualmente mientras navega
     if (onClose) onClose();
   };
+
   if (!job) return null;
   
   // Fallbacks para datos opcionales
   const requirements = job.requirements || [];
-  const benefits = job.benefits || []; // Nuevo campo
+  const benefits = job.benefits || [];
   const skills = job.job_skills || [];
-  const rating = job.companies?.average_rating || 4.8; // Nuevo campo (default simulado)
+  const rating = job.companies?.average_rating || 4.8;
   const companyDesc = job.companies?.description || 'Empresa líder en su sector comprometida con la innovación tecnológica.';
 
   return (
@@ -51,7 +61,10 @@ export default function JobDetailContent({ job, onClose }) {
             </p>
           </div>
         </div>
-        
+        {/* Botón de cerrar (Opcional si el modal ya tiene uno externo) */}
+        <button onClick={onClose} className={styles.closeButton}>
+            <X size={24} />
+        </button>
       </div>
 
       {/* 2. Contenido Scrolleable */}
@@ -137,14 +150,13 @@ export default function JobDetailContent({ job, onClose }) {
           </div>
         </div>
 
-        {/* Beneficios (Nuevo) */}
+        {/* Beneficios */}
         {benefits.length > 0 && (
           <div>
             <h3 className={styles.sectionTitle}>Beneficios</h3>
             <div className={styles.listGrid}>
               {benefits.map((ben, i) => (
                 <div key={i} className={styles.listItem}>
-                  {/* Punto verde simulado con div */}
                   <div style={{width: 8, height: 8, borderRadius: '50%', background: 'var(--brand-mint)', marginTop: 6}} />
                   <span>{ben}</span>
                 </div>
@@ -178,15 +190,16 @@ export default function JobDetailContent({ job, onClose }) {
       {/* 3. Footer Fijo Inferior */}
       <div className={styles.footer}>
        <button 
-            className={styles.btnApply} 
-            onClick={handleApply} // <--- AQUÍ CONECTAMOS LA LÓGICA
+           className={styles.btnApply} 
+           onClick={handleApply} 
+           style={{cursor: 'pointer'}}
         >
           <Send size={20} />
           Aplicar ahora
         </button>
         <button className={styles.btnSave}>
           <Bookmark size={20} />
-          Guardar para más tarde
+          Guardar
         </button>
       </div>
 
