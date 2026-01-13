@@ -1,24 +1,25 @@
 'use client';
-import { useState } from 'react';
+import { useState, Suspense } from 'react'; // <--- 1. IMPORTAMOS SUSPENSE
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation'; // <--- Importante para redirigir
-import { createClient } from '@/utils/supabase/client'; // <--- Importante para conectar a la BD
-import { Mail, Lock, Eye, EyeOff, Loader2 } from 'lucide-react'; // Agregué Loader2 para efecto de carga
+import { useRouter, useSearchParams } from 'next/navigation';
+import { createClient } from '@/utils/supabase/client';
+import { Mail, Lock, Eye, EyeOff, Loader2 } from 'lucide-react';
 import styles from './login.module.css';
 
-export default function LoginPage() {
+// --- 2. CREAMOS UN COMPONENTE INTERNO CON TODA LA LÓGICA ---
+function LoginContent() {
   const router = useRouter();
-  const searchParams = useSearchParams(); // <--- OBTENER PARAMETROS URL
+  const searchParams = useSearchParams(); // Esto es lo que causaba el error sin Suspense
   const nextUrl = searchParams.get('next');
   const [showPassword, setShowPassword] = useState(false);
 
-  // 1. ESTADOS PARA LOS DATOS Y LA CARGA
+  // ESTADOS
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // 2. FUNCIÓN PARA INICIAR SESIÓN
+  // FUNCIÓN LOGIN
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -26,7 +27,7 @@ export default function LoginPage() {
 
     const supabase = createClient();
 
-    // 1. Intentamos loguear (Auth)
+    // 1. Auth
     const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -36,9 +37,10 @@ export default function LoginPage() {
       setError('Credenciales incorrectas. Inténtalo de nuevo.');
       setLoading(false);
     } else {
-      // 2. SI ES EXITOSO: Consultamos el ROL en la tabla 'profiles'
+      // 2. Éxito
       const userId = authData.user.id;
 
+      // Consultar perfil para rol
       const { data: profile, error: profileError } = await supabase
         .from('profiles')
         .select('role')
@@ -46,24 +48,21 @@ export default function LoginPage() {
         .single();
 
       if (profileError) {
-        // Si hay error buscando el perfil, lo mandamos a freelancer por defecto o mostramos error
         console.error("Error cargando perfil", profileError);
         router.push('/freelancer');
       } else {
+        // A) Redirección por 'next' param
         if (nextUrl) {
-           router.push(nextUrl);
-           router.refresh();
-           return;
-       }
+            router.push(nextUrl);
+            router.refresh();
+            return;
+        }
 
-       // 2. Si NO existe 'nextUrl', hacemos la lógica normal de roles
-       const userId = authData.user.id;
-       const { data: profile } = await supabase.from('profiles').select('role').eq('id', userId).single();
-
-       if (profile?.role === 'company') {
-           router.push('/company');
-       } else {
-           router.push('/freelancer');
+        // B) Redirección por Rol
+        if (profile?.role === 'company') {
+            router.push('/company');
+        } else {
+            router.push('/freelancer');
         }
       }
       router.refresh();
@@ -72,13 +71,11 @@ export default function LoginPage() {
 
   return (
     <div className={styles.container}>
-
-      {/* --- LADO IZQUIERDO (IGUAL QUE ANTES) --- */}
+      {/* --- LADO IZQUIERDO --- */}
       <div className={styles.leftPanel}>
         <div className={styles.pattern}></div>
         <div className={styles.overlay}></div>
 
-        {/* LOGO FLOTANTE */}
         <div style={{ position: 'absolute', top: '2rem', left: '2.5rem', zIndex: 20, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <svg width="32" height="32" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ color: 'var(--brand-mint)' }}>
             <path clipRule="evenodd" d="M24 18.4228L42 11.475V34.3663C42 34.7796 41.7457 35.1504 41.3601 35.2992L24 42V18.4228Z" fill="currentColor" fillRule="evenodd" />
@@ -111,16 +108,14 @@ export default function LoginPage() {
         <div className={styles.glowEffect}></div>
       </div>
 
-      {/* --- LADO DERECHO (Formulario FUNCIONAL) --- */}
+      {/* --- LADO DERECHO --- */}
       <div className={styles.rightPanel}>
-
         <div className={styles.formContainer}>
           <div className={styles.formHeader}>
             <h1>Iniciar Sesión</h1>
             <p>Bienvenido de nuevo. Ingresa tus credenciales.</p>
           </div>
 
-          {/* MENSAJE DE ERROR (Si falla el login) */}
           {error && (
             <div style={{ color: '#ff6b6b', background: 'rgba(255, 107, 107, 0.1)', padding: '0.75rem', borderRadius: '0.5rem', fontSize: '0.875rem', marginBottom: '1rem', border: '1px solid rgba(255, 107, 107, 0.2)' }}>
               {error}
@@ -128,8 +123,6 @@ export default function LoginPage() {
           )}
 
           <form className={styles.formContainer} style={{ gap: '1.25rem' }} onSubmit={handleLogin}>
-
-            {/* Input Email */}
             <div className={styles.inputGroup}>
               <label className={styles.label}>Correo Electrónico</label>
               <div className={styles.inputWrapper}>
@@ -137,15 +130,14 @@ export default function LoginPage() {
                   type="email"
                   placeholder="nombre@profesional.com"
                   className={styles.inputField}
-                  value={email} // <--- Conectado al estado
-                  onChange={(e) => setEmail(e.target.value)} // <--- Actualiza el estado
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                 />
                 <Mail className={styles.inputIcon} size={16} />
               </div>
             </div>
 
-            {/* Input Password */}
             <div className={styles.inputGroup}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                 <label className={styles.label}>Contraseña</label>
@@ -157,12 +149,11 @@ export default function LoginPage() {
                   placeholder="••••••••"
                   className={styles.inputField}
                   style={{ paddingRight: '2.5rem' }}
-                  value={password} // <--- Conectado al estado
-                  onChange={(e) => setPassword(e.target.value)} // <--- Actualiza el estado
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                 />
                 <Lock className={styles.inputIcon} size={16} />
-
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
@@ -200,5 +191,15 @@ export default function LoginPage() {
         <p className={styles.copyright}>© 2025 Chambexy Profesional</p>
       </div>
     </div>
+  );
+}
+
+// --- 3. EXPORTAMOS EL COMPONENTE ENVUELTO EN SUSPENSE ---
+export default function LoginPage() {
+  return (
+    // Fallback es lo que se ve un instante mientras Next.js carga los parámetros URL
+    <Suspense fallback={<div style={{height: '100vh', backgroundColor: '#0f1115'}}></div>}>
+      <LoginContent />
+    </Suspense>
   );
 }
