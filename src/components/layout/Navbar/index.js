@@ -17,7 +17,7 @@ export default function Navbar() {
         {/* --- LOGO (Visible siempre) --- */}
         <Link href="/" className={styles.brand}>
           <Box className="text-mint" size={28} strokeWidth={2.5} />
-          <h2 className={styles.brandName}>Chambexy</h2>
+          <h2 className={styles.brandName}>ChambexCity</h2>
         </Link>
 
         {/* --- NAV DESKTOP (Centrado Absoluto) --- */}

@@ -179,7 +179,7 @@ export default function FreelancerDashboard() {
               <li className={styles.activityItem}>
                 <span className={`material-symbols-outlined ${styles.iconSuccess}`}>check_circle</span>
                 <div className={styles.activityText}>
-                  <p>Bienvenido a <strong>Chambexy</strong></p>
+                  <p>Bienvenido a <strong>ChambexCity</strong></p>
                   <small>Hace un momento</small>
                 </div>
               </li>

@@ -37,7 +37,7 @@ export default function AboutPage() {
               <h2 className={styles.sectionHeading}>Nuestra Misión</h2>
               <div className={styles.textBlock}>
                 <p>
-                  En <strong>Chambexy</strong>, creemos que el talento no tiene fronteras. Nuestra misión es empoderar a los profesionales independientes brindándoles las herramientas y la seguridad necesarias para llevar sus carreras al siguiente nivel.
+                  En <strong>ChambexCity</strong>, creemos que el talento no tiene fronteras. Nuestra misión es empoderar a los profesionales independientes brindándoles las herramientas y la seguridad necesarias para llevar sus carreras al siguiente nivel.
                 </p>
                 <p>
                   Al mismo tiempo, ayudamos a las empresas más visionarias a escalar sus proyectos conectándolas con expertos verificados en tiempo récord. No somos solo un marketplace; somos el motor de la revolución del trabajo digital.
@@ -125,7 +125,7 @@ export default function AboutPage() {
                 Nuestra visión a largo plazo es convertirnos en el ecosistema definitivo para el trabajo global. Estamos expandiendo nuestras fronteras para integrar nuevas verticales de servicios, educación continua y herramientas financieras diseñadas exclusivamente para el ecosistema freelance.
               </p>
               <p>
-                El futuro del trabajo es flexible, colaborativo y sin fronteras. Y en Chambexy, estamos construyendo la infraestructura para que eso sea una realidad para todos.
+                El futuro del trabajo es flexible, colaborativo y sin fronteras. Y en ChambexCity, estamos construyendo la infraestructura para que eso sea una realidad para todos.
               </p>
             </div>
           </div>
