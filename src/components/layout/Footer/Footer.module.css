@@ -2,12 +2,12 @@
   background-color: var(--brand-charcoal);
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   padding: 4rem 1.5rem;
-  margin-top: auto; /* Empuja el footer al fondo si hay poco contenido */
+  margin-top: 30px; /* Empuja el footer al fondo si hay poco contenido */
 }
 
 .container {
   max-width: 1280px;
-  margin: 0 auto;
+  margin:  auto;
 }
 
 .topSection {

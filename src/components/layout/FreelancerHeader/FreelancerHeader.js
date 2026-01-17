@@ -105,6 +105,7 @@ export default function FreelancerHeader() {
   const navLinks = [
     { name: 'Buscar Trabajo', href: '/freelancer', icon: Briefcase }, 
     { name: 'Mis Postulaciones', href: '/freelancer/applications', icon: FileText },
+    {name: 'Desafíos', href: '/freelancer/challenges', icon: FileText }
   ];
 
   return (

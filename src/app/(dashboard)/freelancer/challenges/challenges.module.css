@@ -1,0 +1,456 @@
+/* src/app/freelancer/challenges/page.module.css */
+
+.container {
+  width: 100%;
+  max-width: 1000px; /* Un poco más ancho para que se vea bien en dashboard */
+  margin: 0 auto;
+  padding: 40px 24px;
+  font-family: 'Inter', sans-serif;
+  color: #fff;
+}
+
+/* Cabecera de la sección */
+.header {
+  margin-bottom: 40px;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  color: #AFA595; /* Beige del diseño */
+  font-size: 1rem;
+}
+
+/* Alerta de Éxito (Cuando se guarda el resultado) */
+.successAlert {
+  background-color: rgba(122, 220, 183, 0.1); /* Mint muy transparente */
+  border: 1px solid #7ADCB7;
+  border-radius: 12px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+  animation: slideDown 0.4s ease-out;
+}
+
+.successIcon {
+  color: #7ADCB7;
+  flex-shrink: 0;
+}
+
+.successContent h4 {
+  color: #7ADCB7;
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin: 0 0 4px 0;
+}
+
+.successContent p {
+  color: #fff;
+  font-size: 0.85rem;
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* Lista de Tarjetas */
+.grid1 {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+  margin-top: 20px;
+}
+
+.emptyState {
+  padding: 60px;
+  border: 2px dashed #2a2e2e;
+  border-radius: 16px;
+  text-align: center;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+/* Tarjeta individual de desafío */
+.card1 {
+  background-color: #1c1f1f;
+  border: 1px solid #2a2e2e;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+.card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-dark);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  position: relative;
+  height: 100%;
+}
+
+.card1:hover {
+  border-color: #7ADCB7; /* Glow Mint al pasar el mouse */
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+}
+
+.card1Info h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  color: #fff;
+}
+
+.tags {
+  display: flex;
+  gap: 8px;
+}
+
+/* Etiquetas (Badges) */
+.badge {
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badgeDifficulty {
+  background-color: rgba(255,255,255,0.05);
+  color: #AFA595;
+}
+
+.badgeApproved {
+  background-color: rgba(122, 220, 183, 0.15);
+  color: #7ADCB7;
+}
+
+.badgeFailed {
+  background-color: rgba(239, 68, 68, 0.15); /* Rojo suave */
+  color: #ef4444;
+}
+
+/* Columna derecha (Puntaje) */
+.scoreCol {
+  text-align: right;
+}
+
+.scoreValue {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #7ADCB7;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.date {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .card { flex-direction: column; align-items: flex-start; gap: 20px; }
+  .scoreCol { text-align: left; }
+}
+/* --- SECCIÓN EXPLORAR (NUEVOS DESAFÍOS) --- */
+.exploreSection {
+  margin-top: 60px;
+  border-top: 1px solid #2a2e2e;
+  padding-top: 40px;
+}
+
+.sectionHeader {
+  margin-bottom: 30px;
+}
+
+/* Reusamos .card pero para los items explorables (Grid) */
+.exploreGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.exploreCard {
+  background-color: #1c1f1f;
+  border: 1px solid #2a2e2e;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s;
+  height: 100%;
+}
+
+.exploreCard:hover {
+  transform: translateY(-4px);
+  border-color: #7ADCB7;
+}
+
+.exploreCard h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 10px 0;
+}
+
+.exploreDesc {
+  color: #AFA595;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  flex-grow: 1; /* Empuja el botón al fondo */
+}
+
+.btnStart {
+  background-color: #7ADCB7;
+  color: #131616;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  transition: filter 0.2s;
+}
+
+.btnStart:hover {
+  filter: brightness(1.1);
+}
+
+/* --- INTERFAZ DEL QUIZ (MODO EXAMEN) --- */
+.quizWrapper {
+  max-width: 700px;
+  margin: 0 auto;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.quizCard {
+  background-color: #1c1f1f;
+  border: 1px solid #2a2e2e;
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.progressContainer { margin-bottom: 30px; }
+.progressLabel {
+  display: flex; justify-content: space-between;
+  color: #7ADCB7; font-size: 0.8rem; font-weight: 700;
+  margin-bottom: 8px; text-transform: uppercase;
+}
+.track { background: #2a2e2e; height: 6px; border-radius: 10px; overflow: hidden; }
+.fill { background: #7ADCB7; height: 100%; transition: width 0.3s; }
+
+.questionText {
+  font-size: 1.5rem; color: #fff; font-weight: 700; margin-bottom: 30px;
+  line-height: 1.4;
+}
+
+.optionsList { display: flex; flex-direction: column; gap: 12px; }
+
+.optionBtn {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid #2a2e2e;
+  color: #AFA595;
+  padding: 16px;
+  border-radius: 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 1rem;
+}
+
+.optionBtn:hover { border-color: #666; color: #fff; }
+
+.optionSelected {
+  background: rgba(122, 220, 183, 0.1);
+  border: 1px solid #7ADCB7;
+  color: #fff;
+  padding: 16px;
+  border-radius: 12px;
+  text-align: left;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.quizFooter {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btnCancel {
+  background: transparent; border: none; color: #666; cursor: pointer;
+}
+.btnCancel:hover { color: #fff; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+/* src/app/freelancer/challenges/page.module.css */
+
+.container {
+  /* --- 1. COPIA DE VARIABLES (Necesarias para que los colores funcionen) --- */
+  --bg-charcoal: #131616;
+  --bg-card: #1c1f1f;
+  --bg-card-hover: #222525;
+  --primary-mint: #7ADCB7;
+  --text-beige: #AFA595;
+  --text-white: #ffffff;
+  --border-dark: #2a2e2e;
+  
+  /* Estilos base del contenedor */
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px;
+  font-family: 'Inter', sans-serif;
+  color: var(--text-white);
+}
+
+/* --- 2. ESTILOS DE LA CARD (Copiados exactos de tu archivo público) --- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+  margin-top: 20px;
+}
+
+.card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-dark);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  position: relative;
+  height: 100%;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--primary-mint);
+  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.iconBox {
+  width: 48px;
+  height: 48px;
+  background-color: rgba(255,255,255,0.03);
+  border: 1px solid var(--border-dark);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-mint);
+  flex-shrink: 0;
+}
+
+.cardTitleGroup { flex: 1; }
+
+.cardTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-white);
+  margin: 0 0 4px 0;
+  line-height: 1.3;
+}
+
+.cardCategory {
+  font-size: 0.85rem;
+  color: var(--text-beige);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.cardDesc {
+  color: var(--text-beige);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 24px;
+  flex-grow: 1;
+}
+
+.tagsWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.tag {
+  background-color: rgba(255,255,255,0.05);
+  color: var(--text-beige);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: 1px solid transparent;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-dark);
+  margin-top: auto;
+}
+
+.cardMeta {
+  display: flex;
+  gap: 16px;
+  font-size: 0.85rem;
+  color: var(--text-beige);
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btnStart {
+  background-color: var(--primary-mint);
+  color: var(--bg-charcoal);
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+
+.btnStart:hover { filter: brightness(1.1); }
