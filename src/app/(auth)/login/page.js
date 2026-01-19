@@ -59,7 +59,7 @@ function LoginContent() {
         }
 
         // B) Redirección por Rol
-        if (profile?.role === 'company') {
+        if (profile?.role === 'company' || profile?.role === 'company_admin') {
             router.push('/company');
         } else {
             router.push('/freelancer');
